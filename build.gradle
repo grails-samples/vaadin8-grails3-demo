@@ -76,7 +76,7 @@ assets {
 }
 
 vaadin {
-    version "8.1.0.rc1"
+    version "8.1.2"
 }
 
 vaadinSpringBoot {
