@@ -23,9 +23,6 @@ class GrailsUI extends UI {
 
     @Autowired
     CustomerService contactService
-    CustomerService getContactService() {
-        contactService
-    }
 
     private TextField filter = new TextField()
     private Grid grid = new Grid()
