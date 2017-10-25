@@ -28,7 +28,7 @@ spring:
 
 # Spring Actuator Endpoints are Disabled by Default
 endpoints:
-    enabled: true
+    enabled: false
     jmx:
         enabled: true
     shutdown:

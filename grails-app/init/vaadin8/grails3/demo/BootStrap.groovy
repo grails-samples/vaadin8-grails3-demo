@@ -4,6 +4,8 @@ import java.time.LocalDate
 
 class BootStrap {
 
+    CustomerService customerService
+
     def init = { servletContext ->
 
         final fnames = [ "Peter", "Alice", "John", "Mike", "Olivia",
@@ -16,18 +18,17 @@ class BootStrap {
             "Thompson", "Young", "King", "Robinson" ]
 
         Random r = new Random(0);
+        def statuses = Customer.CustomerStatus.values()
         for (int i = 0; i < 100; i++) {
-            Customer customer = new Customer();
+            String firstName = fnames[r.nextInt(fnames.size())]
+            String lastName = lnames[r.nextInt(fnames.size())]
+            String email = "${firstName.toLowerCase()}@${lastName.toLowerCase()}.com"
+            String phone = "+ 358 555 " + (100 + r.nextInt(900))
+            LocalDate birthDate = new LocalDate(1930 + r.nextInt(70), 1 + r.nextInt(11),1 + r.nextInt(27))
 
-            customer.firstName = fnames[r.nextInt(fnames.size())]
-            customer.lastName = lnames[r.nextInt(fnames.size())]
-            customer.email = "${customer.firstName.toLowerCase()}@${customer.lastName.toLowerCase()}.com"
-            customer.phone = "+ 358 555 " + (100 + r.nextInt(900))
-            customer.birthDate = new LocalDate(1930 + r.nextInt(70), 1 + r.nextInt(11),1 + r.nextInt(27))
+            Customer.CustomerStatus status = statuses[r.nextInt(statuses.size())]
 
-            def statuses = Customer.CustomerStatus.values()
-            customer.status = statuses[r.nextInt(statuses.size())]
-            customer.save()
+            customerService.save(firstName, lastName, phone, email, status, birthDate)
         }
     }
     def destroy = {

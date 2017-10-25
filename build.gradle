@@ -29,7 +29,7 @@ repositories {
 }
 
 dependencies {
-    compile "com.vaadin:vaadin-spring-boot-starter:2.1.0.beta2"
+    compile "com.vaadin:vaadin-spring-boot-starter:2.+"
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"
     compile "org.grails:grails-core"

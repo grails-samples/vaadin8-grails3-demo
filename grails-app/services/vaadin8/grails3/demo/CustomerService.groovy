@@ -1,27 +1,21 @@
 package vaadin8.grails3.demo
 
-import grails.gorm.transactions.ReadOnly
-import grails.gorm.transactions.Transactional
+import grails.gorm.services.Service
+import grails.gorm.services.Where
 
-@Transactional
-class CustomerService {
+import java.time.LocalDate
 
+@Service(Customer)
+interface CustomerService {
 
-    @ReadOnly
-    def findAllByNames(String name) {
-        if(!name) {
-            return Customer.findAll()
+    @Where({
+        if(name) {
+            firstName =~ "%${name}%" || lastName =~ "%${name}%"
         }
+    })
+    List<Customer> findAllByNames(String name)
 
-        return Customer.findAllByFirstNameIlikeOrLastNameIlike("%${name}%", "%${name}%")
-    }
+    Customer save(Customer contact)
 
-
-    def save(Customer contact) {
-        contact.save()
-    }
-
-    def delete(Customer customer) {
-        customer.delete()
-    }
+    Customer save(String firstName, String lastName, String phone, String email, Customer.CustomerStatus status, LocalDate birthDate)
 }
